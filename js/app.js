@@ -25,6 +25,15 @@ $(document).ready(function(){
          e.preventDefault()
         loadpage('gallery')
     })
+    $("#contact").click(function(e){
+        e.preventDefault()
+        loadpage('contact')
+    })
+    $("#service").click(function(e){
+        e.preventDefault()
+        loadpage('service')
+    })
+
 
     loadpage('home')
 
@@ -54,4 +63,22 @@ $(document).ready(function(){
         })
     }
     datafetching()
+    // dynamic product detail display in modal  
+    $(document).on("click",'.view', function(e){
+        e.preventDefault()
+        let myid = $(this).data('id');
+
+        $.ajax({
+            url : 'data json',
+            success : function(mydata){
+                let p = mydata.find(item => item.id == myid)
+                $("#m-image").attr('src',p.image)
+                $("#m-name").html(p.name)
+                $("#m-price").html(p.price)
+                let mymodal = new bootstrap.modal(document.getElementById("mymodal")).show()
+            }
+
+        })
+
+    }
 })
